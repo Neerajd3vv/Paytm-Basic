@@ -1,25 +1,24 @@
+const { JWT_SECRET } = require("./config");
 const jwt = require("jsonwebtoken");
-const { jwt_SECRET } = require("./config");
 
-async function authMiddleware(req, res, next) {
+const authMiddleware = (req, res, next) => {
   const fullToken = req.headers.authorization;
-  if (!fullToken || !fullToken.startsWith("bearer")) {
-    res.status(403).json({ msg: "invalid token" });
+
+  if (!fullToken || !fullToken.startsWith("Bearer ")) {
+    return res.status(403).json({});
   }
+
   const realToken = fullToken.split(" ")[1];
+
   try {
-    const decode = jwt.verify(realToken, jwt_SECRET);
-    if (!decode.userId) {
-      res.json({ msg: "no userId" });
-    } else {
-      req.userId = decode.userId;
-      next()
-    }
+    const decoded = jwt.verify(realToken, JWT_SECRET);
+
+    req.userId = decoded.userId;
+
+    next();
   } catch (err) {
-    res
-      .status(403)
-      .json({ msg: "Abe tu hai kon? bkl, Token sahi nhi hai tera" });
+    return res.status(403).json({});
   }
-}
+};
 
 module.exports = authMiddleware;

@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 
 // connect to mongoDb
-mongoose.connect("");
+mongoose.connect(
+  "mongodb+srv://Neeraj:K12TDTSFZKGYq4DY@cluster0.xul7h84.mongodb.net/paytm"
+);
 
 // mongoose user schema
 const UserSchema = new mongoose.Schema({
@@ -9,7 +11,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     minLength: 4,
-    maxLength: 15,
+    maxLength: 30,
     lowerCase: true,
     unique: true,
     trim: true,
@@ -34,7 +36,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 // mongoose bankBalance schema
-const accountSchema  = new mongoose.Schema({
+const accountSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -48,10 +50,10 @@ const accountSchema  = new mongoose.Schema({
 
 // model
 const User = mongoose.model("User", UserSchema);
-const Account  = mongoose.model("Account ", accountSchema )
+const Account = mongoose.model("Account ", accountSchema);
 
 //export
 module.exports = {
   User,
-  Account ,
+  Account,
 };
