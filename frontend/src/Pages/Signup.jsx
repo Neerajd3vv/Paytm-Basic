@@ -33,14 +33,14 @@ function Signup() {
             onChange={(e) => {
               setLastName(e.target.value);
             }}
-            placeholder="Doe"
+            placeholder="bhati"
             label={"Last Name"}
           />
           <InputBox
             onChange={(e) => {
               setUsername(e.target.value);
             }}
-            placeholder="harkirat@gmail.com"
+            placeholder="test@gmail.com"
             label={"Email"}
           />
           <InputBox

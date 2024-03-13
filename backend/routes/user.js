@@ -77,7 +77,7 @@ router.post("/signin", async (req, res) => {
       password: req.body.password,
     });
     if (!userExists) {
-      return res.status(411).json({ msg: "Error while logging in" });
+      return res.status(401).json({ msg: "Error while logging in" });
     } else {
       const token = jwt.sign({ userId: userExists._id }, JWT_SECRET);
       res.status(200).json({ token: token });
@@ -126,5 +126,19 @@ router.get("/bulk", async (req, res) => {
     })),
   });
 });
+
+router.post("/verify" , (req,res)=>{
+  const fullToken = req.headers.authorization
+  if (!fullToken ||!fullToken.startsWith("Bearer ") ) {
+    return res.status(403).json({});
+  }
+  const actualToken = fullToken.split(" ")[1]
+  try {
+    const decoded = jwt.verify(actualToken , JWT_SECRET)
+    res.json({user: decoded.userId})
+  } catch (error) {
+    res.json({msg:"Something wrong with token"})
+  }
+})
 
 module.exports = router;

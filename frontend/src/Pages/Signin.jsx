@@ -33,15 +33,26 @@ function Signin() {
           />
           <div className="pt-4">
             <Button
-              onClick={ () => {
-                  axios.post(
-                  "http://localhost:3000/api/v1/user/signin",
-                  {
+              onClick={() => {
+                axios
+                  .post("http://localhost:3000/api/v1/user/signin", {
                     username,
                     password,
-                  }
-                );
-                navigate("/dashboard");
+                  })
+                  
+                  .then((response) => {
+                    if (response.data.token) {
+                      localStorage.setItem("token" , response.data.token)
+                      navigate("/dashboard");
+                    } else {
+                      navigate("/signup");
+                    }
+                  })
+                  
+                  .catch((error) => {
+                    console.error("Error signing in:", error);
+                    // Handle any other errors here (e.g., network error)
+                  });
               }}
               label={"Sign in"}
             />
