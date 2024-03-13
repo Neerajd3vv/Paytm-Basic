@@ -4,7 +4,7 @@ import Signin from "./Pages/Signin";
 import SendMoney from "./Pages/SendMoney";
 import Dashboard from "./Pages/Dashboard";
 import Me from "./Pages/Me";
-import Pop from "./Pages/Pop";
+import Success from "./Pages/Success";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
           {/* <Route path="/"  element={<Navigate to='/me' />}/> */}
           <Route path="/" element={<Me />} />
           {/* Other routes */}
-          <Route path="/pop" element={<Pop/>}/>
+          <Route path="/success" element={<Success />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/send" element={<SendMoney />} />
